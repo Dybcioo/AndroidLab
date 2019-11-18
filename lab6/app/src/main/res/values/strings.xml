@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">lab6</string>
+    <string name="login_data_save_error">działam!</string>
+</resources>
