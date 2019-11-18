@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">lab5</string>
+    <string name="login_empty_error"> Podaj login</string>
+    <string name="password_empty_error">Podaj hasło</string>
+    <string name="login_data_save_error">Operacaj nie powiodła się</string>
+    <string name="login_data_save_success">Operacja zakończona sukcesem</string>
+    <string name="title_activity_debtor">debtorActivity</string>
+</resources>
