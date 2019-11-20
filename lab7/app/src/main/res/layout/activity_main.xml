@@ -37,6 +37,7 @@
         android:layout_marginEnd="112dp"
         android:layout_marginRight="112dp"
         android:layout_marginBottom="92dp"
+        android:onClick="onAddNotificationClick"
         android:text="pokaż Powiadomienie"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

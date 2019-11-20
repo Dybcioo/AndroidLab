@@ -14,18 +14,12 @@ public class ExampleDialog extends DialogFragment {
         AlertDialog.Builder builder = new
                 AlertDialog.Builder(getActivity());
         builder.setMessage("Powiadomienie z interakcja")
-                .setPositiveButton("Wow", new
-                        DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-
-                            }
-                        })
-                .setNegativeButton("Tyle opcji", new
-                        DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                //Tost drugi
-                            }
-                        });
+                .setPositiveButton("Wow",(dialog,id) ->{
+                    Toast.makeText(this.getContext(),"Hejka",Toast.LENGTH_SHORT).show();
+                })
+                .setNegativeButton("Tyle opcji",(dialog, id) -> {
+                    Toast.makeText(this.getContext(),"Eloszka",Toast.LENGTH_SHORT).show();
+                } );
         Dialog dialog = builder.create();
         return dialog;
     }
