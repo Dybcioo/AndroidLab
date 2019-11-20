@@ -1,15 +1,19 @@
 package com.example.lab7;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 
 import android.annotation.SuppressLint;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -45,15 +49,24 @@ public class MainActivity extends AppCompatActivity {
         ExampleDialog dialog = new ExampleDialog();
         dialog.show(getSupportFragmentManager(),"dialog");
     }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void onAddNotificationClick(View view){
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
+        int notifyID = 1;
+        String CHANNEL_ID = "my_channel_01";
+        CharSequence name = getString(R.string.channel_name);
+        int importance = NotificationManager.IMPORTANCE_HIGH;
+        NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
+
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(android.R.drawable.stat_sys_warning)
                         .setContentTitle("Very important notification")
                         .setContentText("U must buy eggs")
                         .setTimeoutAfter(1000);
-        NotificationManager mNotificationManager = (NotificationManager)
-                getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.notify(0, mBuilder.build());
-        System.out.println("elo");
+
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.createNotificationChannel(mChannel);
+        mNotificationManager.notify(notifyID, mBuilder.build());
     }
 }
