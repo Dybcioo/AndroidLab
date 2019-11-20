@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">lab7</string>
     <string name="channel_name">myChannel</string>
+    <string name="channel_namee">mySecondChannel</string>
 </resources>
