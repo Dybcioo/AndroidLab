@@ -8,24 +8,42 @@ import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    private Intent mNotificationIntent;
+    private PendingIntent mContentIntent;
+    private Uri soundURI =
+            Uri.parse("android.resource://com.example.lab7/" +
+                    R.raw.woof);
+    private long[] vibrationPattern = {0, 200, 200, 300};
+
+
+    @SuppressLint("WrongConstant")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mNotificationIntent = new Intent(getApplicationContext(),
+                IntentActivity.class);
+        mContentIntent = PendingIntent.getActivity(getApplicationContext(), 0,
+                mNotificationIntent, Intent.FLAG_ACTIVITY_NEW_TASK);
     }
 
 
@@ -64,6 +82,33 @@ public class MainActivity extends AppCompatActivity {
                         .setContentTitle("Very important notification")
                         .setContentText("U must buy eggs")
                         .setTimeoutAfter(1000);
+
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.createNotificationChannel(mChannel);
+        mNotificationManager.notify(notifyID, mBuilder.build());
+    }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void onAddSpecialNotificationClick(View view){
+
+        RemoteViews mContentView = new RemoteViews("com.example.lab7", R.layout.custom_notification);
+
+        mContentView.setTextViewText(R.id.textView, "U must buy eggs");
+        Bitmap photo = BitmapFactory.decodeResource(view.getContext().getResources(), R.drawable.piesel);
+        mContentView.setImageViewBitmap(R.id.imageView2, photo);
+
+        int notifyID = 2;
+        String CHANNEL_ID = "my_channel_02";
+        CharSequence name = getString(R.string.channel_namee);
+        int importance = NotificationManager.IMPORTANCE_HIGH;
+        NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
+
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(android.R.drawable.stat_sys_warning)
+                .setAutoCancel(true)
+                .setContentIntent(mContentIntent)
+                .setSound(soundURI)
+                .setVibrate(vibrationPattern)
+                .setContent(mContentView);
 
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.createNotificationChannel(mChannel);
