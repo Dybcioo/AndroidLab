@@ -2,4 +2,6 @@
 <resources>
     <dimen name="jelly_width">300dp</dimen>
     <dimen name="jelly_height">300dp</dimen>
+    <dimen name="size">250dp</dimen>
+    <dimen name="padding">20dp</dimen>
 </resources>
