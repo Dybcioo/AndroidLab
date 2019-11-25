@@ -17,9 +17,9 @@ public class SecondActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         RelativeLayout rl = new RelativeLayout(this);
-        ImageView image = new ImageView(this);
+        ImageView image = new ImageView(rl.getContext());
 
-        ContextCompat.getDrawable(getApplicationContext(), R.drawable.piesel);
+        image.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.piesel));
         int height = (int)getResources().getDimension(R.dimen.jelly_height);
         int width = (int)getResources().getDimension(R.dimen.jelly_width);
 
@@ -28,10 +28,8 @@ public class SecondActivity extends AppCompatActivity {
         params.addRule(RelativeLayout.CENTER_IN_PARENT);
         image.setLayoutParams(params);
 
-        Bitmap photo = BitmapFactory.decodeResource(getResources(), R.drawable.piesel);
-        image.setImageBitmap(photo);
+        rl.addView(image);
 
         setContentView(rl);
-
     }
 }
